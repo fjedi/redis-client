@@ -9,7 +9,7 @@
   ],
   "private": false,
   "scripts": {
-    "test": "jest",
+    "test": "env-cmd -f .env --silent jest",
     "test:watch": "env-cmd -f .env jest --watchAll",
     "build": "npm run clean && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
     "clean": "rimraf lib",
