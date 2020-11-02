@@ -1,6 +1,6 @@
 {
   "name": "@fjedi/redis-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Wrapper for connecting to redis server",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -9,7 +9,7 @@
   ],
   "private": false,
   "scripts": {
-    "test": "env-cmd -f .env jest",
+    "test": "jest",
     "test:watch": "env-cmd -f .env jest --watchAll",
     "build": "npm run clean && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
     "clean": "rimraf lib",

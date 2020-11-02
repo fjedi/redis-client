@@ -6,7 +6,7 @@ import {
 } from 'redis';
 
 //
-const { REDIS_HOST, REDIS_PORT } = process.env;
+const { REDIS_HOST = '127.0.0.1', REDIS_PORT = 6379 } = process.env;
 
 type Units = 'PX' | 'EX';
 type Period = number;
