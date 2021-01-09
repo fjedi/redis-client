@@ -1,6 +1,6 @@
 {
   "name": "@fjedi/redis-client",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Wrapper for connecting to redis server",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -45,7 +45,7 @@
   "devDependencies": {
     "@types/bluebird": "3.5.33",
     "@types/expect": "24.3.0",
-    "@types/jest": "26.0.19",
+    "@types/jest": "26.0.20",
     "@types/node": "14.14.20",
     "@typescript-eslint/eslint-plugin": "4.8.2",
     "@typescript-eslint/parser": "4.8.2",
