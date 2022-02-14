@@ -1,4 +1,4 @@
-import { Promise } from 'bluebird';
+import { promisifyAll } from 'bluebird';
 import {
   createClient as createRedisClient,
   RedisClient as Client,
@@ -6,7 +6,7 @@ import {
 } from 'redis';
 
 //
-const { REDIS_HOST = '127.0.0.1', REDIS_PORT = 6379 } = process.env;
+export const { REDIS_HOST = '127.0.0.1', REDIS_PORT = 6379 } = process.env;
 
 type Units = 'PX' | 'EX';
 type Period = number;
@@ -19,10 +19,18 @@ export type RedisClient = Client & {
 };
 
 // Create client to work with Redis database
-Promise.promisifyAll(Client.prototype);
+promisifyAll(Client.prototype);
 export const redis = createRedisClient({
   host: `${REDIS_HOST}`,
   port: parseInt(`${REDIS_PORT}`, 10),
 }) as RedisClient;
+
+export async function createClient(options: Options): Promise<RedisClient> {
+  return createRedisClient({
+    host: `${REDIS_HOST}`,
+    port: parseInt(`${REDIS_PORT}`, 10),
+    ...(options ?? {}),
+  }) as RedisClient;
+}
 
 export default redis;
