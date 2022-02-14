@@ -25,7 +25,7 @@ export const redis = createRedisClient({
   port: parseInt(`${REDIS_PORT}`, 10),
 }) as RedisClient;
 
-export async function createClient(options: Options): Promise<RedisClient> {
+export function createClient(options: Options): RedisClient {
   return createRedisClient({
     host: `${REDIS_HOST}`,
     port: parseInt(`${REDIS_PORT}`, 10),
