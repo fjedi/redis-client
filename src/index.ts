@@ -1,35 +1,31 @@
-import { promisifyAll } from 'bluebird';
-import {
-  createClient as createRedisClient,
-  RedisClient as Client,
-  ClientOpts as Options,
-} from 'redis';
+import Redis, { RedisOptions } from 'ioredis';
 
-//
-export const { REDIS_HOST = '127.0.0.1', REDIS_PORT = 6379 } = process.env;
+// Get Redis configuration from environment variables
+export const { REDIS_HOST = '127.0.0.1', REDIS_PORT = '6379' } = process.env;
 
 type Units = 'PX' | 'EX';
 type Period = number;
 type Value = string | number;
 
-export type RedisClient = Client & {
+export type RedisClient = Redis & {
   setAsync(key: string, value: Value, units?: Units, period?: Period): Promise<void>;
   getAsync(key: string): Promise<string>;
-  options: Options;
+  options: RedisOptions;
 };
 
-// Create client to work with Redis database
-promisifyAll(Client.prototype);
-export const redis = createRedisClient({
-  host: `${REDIS_HOST}`,
-  port: parseInt(`${REDIS_PORT}`, 10),
+// Create a new Redis client instance
+export const redis = new Redis({
+  host: REDIS_HOST,
+  port: parseInt(REDIS_PORT, 10),
+  // Include any additional options here
 }) as RedisClient;
 
-export function createClient(options: Options): RedisClient {
-  return createRedisClient({
-    host: `${REDIS_HOST}`,
-    port: parseInt(`${REDIS_PORT}`, 10),
-    ...(options ?? {}),
+// Function to create a new Redis client with custom options
+export function createClient(options: RedisOptions): RedisClient {
+  return new Redis({
+    host: REDIS_HOST,
+    port: parseInt(REDIS_PORT, 10),
+    ...options,
   }) as RedisClient;
 }
 
