@@ -14,13 +14,13 @@ describe('Test caching database', function () {
   });
 
   it('Save value to cache', async function () {
-    const result = await redis.setAsync(CACHE_KEY, CACHED_VALUE);
+    const result = await redis.set(CACHE_KEY, CACHED_VALUE);
 
     expect(result).toBe('OK');
   });
 
   it('Get value from cache', async function () {
-    const result = await redis.getAsync(CACHE_KEY);
+    const result = await redis.get(CACHE_KEY);
 
     expect(result).toBe(CACHED_VALUE);
   });
