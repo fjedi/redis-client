@@ -10,7 +10,7 @@ describe('Test caching database', function () {
 
   afterAll(async () => {
     console.log('Emit afterAll test-hook');
-    redis.end(true);
+    redis.disconnect();
   });
 
   it('Save value to cache', async function () {
