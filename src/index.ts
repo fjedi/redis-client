@@ -1,15 +1,32 @@
-import Redis, { RedisOptions } from 'ioredis';
+import ioredis, { RedisOptions, RedisKey, RedisValue } from 'ioredis';
 
 // Get Redis configuration from environment variables
 export const { REDIS_HOST = '127.0.0.1', REDIS_PORT = '6379' } = process.env;
 
 type Units = 'PX' | 'EX';
 type Period = number;
-type Value = string | number;
+
+type SetFunctionType = (
+  key: RedisKey,
+  value: string | Buffer | number,
+  units: Units,
+  periods: Period,
+) => Promise<string>;
+
+export class Redis extends ioredis {
+  // Deprecated method, needed for backward compatibility
+  getAsync(key: RedisKey): Promise<string | null> {
+    return super.get(key);
+  }
+  // Deprecated method, needed for backward compatibility
+  setAsync(key: RedisKey, value: RedisValue, units: Units, period: Period): Promise<string> {
+    return (super.set as SetFunctionType)(key, value, units, period);
+  }
+}
 
 export type RedisClient = Redis & {
-  setAsync(key: string, value: Value, units?: Units, period?: Period): Promise<void>;
-  getAsync(key: string): Promise<string>;
+  setAsync(key: RedisKey, value: RedisValue, units?: Units, period?: Period): Promise<void>;
+  getAsync(key: RedisKey): Promise<string>;
   options: RedisOptions;
 };
 

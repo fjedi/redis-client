@@ -1,6 +1,6 @@
 {
   "name": "@fjedi/redis-client",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "Wrapper for connecting to redis server",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
